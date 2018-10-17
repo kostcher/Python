@@ -9,7 +9,7 @@ class Line:
         self.p1 = p1
         self.p2 = p2
 
-    def length(self):
+    def get_length(self):
         return math.sqrt(
             (self.p2[0] - self.p1[0]) ** 2 + (self.p2[1] - self.p1[1]) ** 2
         )
@@ -22,21 +22,21 @@ class Triangle:
         self.c = Line(points[2], points[0])
 
     def get_perimeter(self):
-        return self.a.length() + self.b.length() + self.c.length()
+        return self.a.get_length() + self.b.get_length() + self.c.get_length()
 
     def get_square(self):
         hp = self.get_perimeter() * 0.5
 
         return math.sqrt(
-            hp * (hp - self.a.length()) * (hp - self.b.length()) * (hp - self.c.length())
+            hp * (hp - self.a.get_length()) * (hp - self.b.get_length()) * (hp - self.c.get_length())
         )
 
     def get_height(self):
         square = self.get_square();
         return {
-            'a': square / 0.5 * self.a.length(),
-            'b': square / 0.5 * self.b.length(),
-            'c': square / 0.5 * self.c.length(),
+            'a': square / 0.5 * self.a.get_length(),
+            'b': square / 0.5 * self.b.get_length(),
+            'c': square / 0.5 * self.c.get_length(),
         }
 
 
