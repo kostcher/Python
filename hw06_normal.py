@@ -37,7 +37,7 @@ class Teacher(Person):
         self.subject = subject
 
 
-class Class:
+class ClassRoom:
     def __init__(self, name):
         self.name = name
         self.students = []
@@ -50,7 +50,10 @@ class Class:
         self.teachers.append(teacher)
 
     def get_students(self):
-        pass
+        return [student.get_short_name() for student in self.students]
+
+    def get_teachers(self):
+        return [teacher.get_short_name() for teacher in self.teachers]
 
 
 class Student(Person):
@@ -67,8 +70,19 @@ class School:
     def add_class(self, class_name):
         self.classes.append(class_name)
 
-    def get_subjects(self, student):
-        pass
+    def get_class_rooms(self):
+        return [class_room.name for class_room in self.classes]
+
+    def get_student_subjects(self, searched_student):
+        subjects = []
+
+        for class_room in self.classes:
+            for student in class_room.students:
+                if student == searched_student:
+                    for teacher in class_room.teachers:
+                        subjects.append(teacher.subject)
+
+        return subjects
 
 
 mother_1 = Parent('Мать', 'Мать', 'Мать')
@@ -79,23 +93,21 @@ student_2 = Student('Петр', 'Петров', 'Петровнович', mother
 
 # 1. Получить полный список всех классов школы
 school_1 = School()
-class_1 = Class('1А')
-class_2 = Class('2А')
-class_3 = Class('3А')
+class_1 = ClassRoom('1А')
+class_2 = ClassRoom('2А')
+class_3 = ClassRoom('3А')
 school_1.add_class(class_1)
 school_1.add_class(class_2)
 school_1.add_class(class_3)
 
-for class_room in school_1.classes:
-    print(class_room.name)
+print(school_1.get_class_rooms())
 print('\n')
 
 # 2. Получить список всех учеников в указанном классе
 class_1.add_student(student_1)
-class_1.add_student(student_2)
+class_2.add_student(student_2)
 
-for student in class_1.students:
-    print(student.get_short_name())
+print(class_1.get_students())
 print('\n')
 
 # 4. Узнать ФИО родителей указанного ученика
@@ -109,15 +121,11 @@ teacher_2 = Teacher('Мария', 'Иванова_2', 'Ивановна', 'Ин�
 class_1.add_teacher(teacher_1)
 class_1.add_teacher(teacher_2)
 
-for teacher in class_1.teachers:
-    print(teacher.get_short_name())
+print(class_1.get_teachers())
 print('\n')
 
 # 3. Получить список всех предметов указанного ученика
 #  (Ученик --> Класс --> Учителя --> Предметы)
+# student_1 - обьект ученика, предметы которого нужно получить
 
-for class_room in school_1.classes:
-    for student in class_room.students:
-        if student == student_2:
-            for teacher in class_room.teachers:
-                print(teacher.subject)
+print(school_1.get_student_subjects(student_1))
