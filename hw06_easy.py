@@ -43,7 +43,6 @@ class Triangle:
 points = [[3, 2], [7, 5], [0, 0]]
 
 triangle = Triangle(points)
-
 print(triangle.get_perimeter())
 print(triangle.get_square())
 print(triangle.get_height())
