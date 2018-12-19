@@ -14,7 +14,7 @@
 # оформленные в виде соответствующих функций,
 # и импортированные в данный файл из easy.py
 
-import hw05_easy
+from hw_5 import hw05_easy
 
 
 def show_menu():
